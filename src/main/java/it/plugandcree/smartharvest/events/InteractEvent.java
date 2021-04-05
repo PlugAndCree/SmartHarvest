@@ -1,6 +1,7 @@
 package it.plugandcree.smartharvest.events;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.event.EventHandler;
@@ -15,7 +16,7 @@ public class InteractEvent implements Listener {
 
 	@EventHandler
 	public void onRightClick(PlayerInteractEvent e) {
-		if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+		if (e.getPlayer().getGameMode() == GameMode.SURVIVAL && e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			if (SmartHarvest.getHarvestable().contains(e.getClickedBlock().getType())) {
 				Block block = e.getClickedBlock();
 				Ageable crop = (Ageable) block.getBlockData();
