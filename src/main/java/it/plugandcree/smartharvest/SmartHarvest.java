@@ -22,7 +22,7 @@ public class SmartHarvest extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new InteractEvent(), this);
 
 		setHarvestable(new ArrayList<Material>(Arrays
-				.asList(new Material[] { Material.WHEAT, Material.BEETROOTS, Material.CARROTS, Material.POTATOES })));
+				.asList(new Material[] { Material.WHEAT, Material.BEETROOTS, Material.CARROTS, Material.POTATOES, Material.COCOA, Material.NETHER_WART })));
 	
 	}
 
