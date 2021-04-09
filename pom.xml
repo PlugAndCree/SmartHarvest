@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.plugandcree</groupId>
 	<artifactId>smartharvest</artifactId>
-	<version>1.0.1</version>
+	<version>1.1.0</version>
 	<name>SmartHarvest</name>
 	<repositories>
 		<repository>
@@ -45,6 +45,32 @@
 					<source>1.8</source>
 					<target>1.8</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.2.1</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<artifactSet>
+								<includes>
+									<include>com.spigot.libraries:spigot-commons</include>
+								</includes>
+							</artifactSet>
+							<relocations>
+								<relocation>
+									<pattern>com.spigot.libraries</pattern>
+									<shadedPattern>it.plugandcree.smartharvest.libraries</shadedPattern>
+								</relocation>
+							</relocations>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

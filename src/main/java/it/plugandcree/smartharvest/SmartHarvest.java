@@ -10,6 +10,7 @@ import org.bukkit.Material;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import it.plugandcree.smartharvest.commands.MainCommand;
 import it.plugandcree.smartharvest.config.ConfigProcessor;
 import it.plugandcree.smartharvest.config.CustomConfig;
 import it.plugandcree.smartharvest.events.InteractEvent;
@@ -32,6 +33,8 @@ public class SmartHarvest extends JavaPlugin {
 		
 		getServer().getPluginManager().registerEvents(new InteractEvent(), this);
 
+		new MainCommand().register(this);
+		
 		setHarvestable(new ArrayList<Material>(Arrays.asList(new Material[] { Material.WHEAT, Material.BEETROOTS,
 				Material.CARROTS, Material.POTATOES, Material.COCOA, Material.NETHER_WART })));
 
