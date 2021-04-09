@@ -11,6 +11,10 @@
 			<id>spigot-repo</id>
 			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
 		</repository>
+		<repository>
+			<id>tecno-repo</id>
+			<url>http://repo.mrtecno.online/repository/public-maven/</url>
+		</repository>
 	</repositories>
 
 	<dependencies>
@@ -19,6 +23,11 @@
 			<artifactId>spigot-api</artifactId>
 			<version>1.15.2-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.spigot.libraries</groupId>
+			<artifactId>spigot-commons</artifactId>
+			<version>1.7.5-f6cd60e</version>
 		</dependency>
 	</dependencies>
 	<build>

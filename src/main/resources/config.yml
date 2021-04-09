@@ -1,0 +1,5 @@
+harvest-with-hoe:
+    #The player can only harvest with hoe
+    enabled: true
+    #lose 1 durability each crop harvested
+    durability-per-operation: -1

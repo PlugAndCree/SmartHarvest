@@ -1,0 +1,9 @@
+messages:
+    prefix: "&a&lSmart harvest > &7"
+    no-perm: "Not enough permissions."
+    reload-complete: "Reload complete!"
+    
+    help: "All commands: "
+    help-format: "&7- &a%s &8(&r%s&8)"
+    
+    symbol-format: "[%s]"
