@@ -1,9 +1,13 @@
 package it.plugandcree.smartharvest.events;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.GameMode;
+import org.bukkit.Particle;
+import org.bukkit.Particle.DustOptions;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -19,7 +23,8 @@ public class InteractEvent implements Listener {
 
 	@EventHandler
 	public void onRightClick(PlayerInteractEvent e) {
-		if (e.getPlayer().getGameMode() == GameMode.SURVIVAL && e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getPlayer().hasPermission("smartharvest.harvest")) {
+		if (e.getPlayer().getGameMode() == GameMode.SURVIVAL && e.getAction() == Action.RIGHT_CLICK_BLOCK
+				&& e.getPlayer().hasPermission("smartharvest.harvest")) {
 			if (SmartHarvest.getHarvestable().contains(e.getClickedBlock().getType())) {
 				Block block = e.getClickedBlock();
 				Ageable crop = (Ageable) block.getBlockData();
@@ -56,6 +61,19 @@ public class InteractEvent implements Listener {
 						block.setType(crop.getMaterial());
 						crop.setAge(0);
 						block.setBlockData(crop);
+
+						if (!SmartHarvest.getInstance().isParticleEnabled())
+							return;
+
+						ConfigurationSection config = SmartHarvest.getInstance().getMainConfig()
+								.getConfigurationSection("particles");
+
+						DustOptions dustOptions = new DustOptions(Color.fromRGB(config.getInt("color.red"),
+								config.getInt("color.green"), config.getInt("color.blue")),
+								(float) config.getDouble("size"));
+						e.getClickedBlock().getLocation().getWorld().spawnParticle(Particle.REDSTONE,
+								e.getClickedBlock().getLocation().add(0.5, 1, 0.5), config.getInt("count"),
+								dustOptions);
 					}
 				}
 			}

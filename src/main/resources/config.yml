@@ -3,3 +3,14 @@ harvest-with-hoe:
     enabled: true
     #lose 1 durability each crop harvested
     durability-per-operation: 1
+
+    
+particles:
+    #spawn particle on crop harvest
+    enabled: true
+    color:
+        red: 147
+        green: 245
+        blue: 66
+    size: 2.0
+    count: 50

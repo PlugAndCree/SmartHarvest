@@ -10,4 +10,8 @@ public class ConfigProcessor {
 	public static int getDurabilityLoss() {
 		return SmartHarvest.getInstance().getMainConfig().getInt("harvest-with-hoe.durability-per-operation");
 	}
+	
+	public static boolean getParticlesEnabled() {
+		return SmartHarvest.getInstance().getMainConfig().getBoolean("particles.enabled");
+	}
 }

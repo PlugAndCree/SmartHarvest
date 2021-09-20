@@ -22,6 +22,7 @@ public class SmartHarvest extends JavaPlugin {
 	private CustomConfig mainConfig;
 	private CustomConfig langConfig;
 	private boolean hoeEnabled;
+	private boolean particleEnabled;
 	private int durabilityPerUse;
 	
 	@Override
@@ -46,6 +47,8 @@ public class SmartHarvest extends JavaPlugin {
 		
 		setHoeEnabled(ConfigProcessor.getHoeEnabled());
 		setDurabilityPerUse(ConfigProcessor.getDurabilityLoss());
+		
+		setParticleEnabled(ConfigProcessor.getParticlesEnabled());
 	}
 
 	private CustomConfig createConfigFile(String name) {
@@ -106,6 +109,14 @@ public class SmartHarvest extends JavaPlugin {
 
 	public void setDurabilityPerUse(int durabilityPerUse) {
 		this.durabilityPerUse = durabilityPerUse;
+	}
+
+	public boolean isParticleEnabled() {
+		return particleEnabled;
+	}
+
+	public void setParticleEnabled(boolean particleEnabled) {
+		this.particleEnabled = particleEnabled;
 	}
 	
 }
