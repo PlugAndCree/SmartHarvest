@@ -23,60 +23,66 @@ public class InteractEvent implements Listener {
 
 	@EventHandler
 	public void onRightClick(PlayerInteractEvent e) {
-		if (e.getPlayer().getGameMode() == GameMode.SURVIVAL && e.getAction() == Action.RIGHT_CLICK_BLOCK
-				&& e.getPlayer().hasPermission("smartharvest.harvest")) {
-			if (SmartHarvest.getHarvestable().contains(e.getClickedBlock().getType())) {
-				Block block = e.getClickedBlock();
-				Ageable crop = (Ageable) block.getBlockData();
+		if (e.getPlayer().getGameMode() != GameMode.SURVIVAL)
+			return;
 
-				if (crop.getAge() == crop.getMaximumAge()) {
+		if (e.getAction() != Action.RIGHT_CLICK_BLOCK)
+			return;
 
-					if (SmartHarvest.getInstance().isHoeEnabled() && !e.getPlayer().getInventory().getItemInMainHand()
-							.getType().name().toUpperCase().endsWith("HOE")) {
-						return;
-					}
+		if (!e.getPlayer().hasPermission("smartharvest.harvest"))
+			return;
 
-					BlockBreakEvent bre = new BlockBreakEvent(block, e.getPlayer());
-					Bukkit.getPluginManager().callEvent(bre);
-					if (!bre.isCancelled()) {
+		if (!SmartHarvest.getHarvestable().contains(e.getClickedBlock().getType()))
+			return;
 
-						if (SmartHarvest.getInstance().isHoeEnabled()) {
-							if (!(e.getPlayer().getInventory().getItemInMainHand().getItemMeta() instanceof Damageable))
-								return;
+		Block block = e.getClickedBlock();
+		Ageable crop = (Ageable) block.getBlockData();
 
-							ItemStack hand = e.getPlayer().getInventory().getItemInMainHand();
-							Damageable item = (Damageable) e.getPlayer().getInventory().getItemInMainHand()
-									.getItemMeta();
+		if (crop.getAge() != crop.getMaximumAge())
+			return;
 
-							if ((hand.getType().getMaxDurability() - item.getDamage()) < SmartHarvest.getInstance()
-									.getDurabilityPerUse())
-								return;
-
-							item.setDamage(item.getDamage() + SmartHarvest.getInstance().getDurabilityPerUse());
-							e.getPlayer().getInventory().getItemInMainHand().setItemMeta((ItemMeta) item);
-
-						}
-						bre.setCancelled(true);
-						block.breakNaturally(e.getPlayer().getInventory().getItemInMainHand());
-						block.setType(crop.getMaterial());
-						crop.setAge(0);
-						block.setBlockData(crop);
-
-						if (!SmartHarvest.getInstance().isParticleEnabled())
-							return;
-
-						ConfigurationSection config = SmartHarvest.getInstance().getMainConfig()
-								.getConfigurationSection("particles");
-
-						DustOptions dustOptions = new DustOptions(Color.fromRGB(config.getInt("color.red"),
-								config.getInt("color.green"), config.getInt("color.blue")),
-								(float) config.getDouble("size"));
-						e.getClickedBlock().getLocation().getWorld().spawnParticle(Particle.REDSTONE,
-								e.getClickedBlock().getLocation().add(0.5, 1, 0.5), config.getInt("count"),
-								dustOptions);
-					}
-				}
-			}
+		if (SmartHarvest.getInstance().isHoeEnabled()
+				&& !e.getPlayer().getInventory().getItemInMainHand().getType().name().toUpperCase().endsWith("HOE")) {
+			return;
 		}
+
+		BlockBreakEvent bre = new BlockBreakEvent(block, e.getPlayer());
+		Bukkit.getPluginManager().callEvent(bre);
+		
+		if (bre.isCancelled())
+			return;
+
+		if (SmartHarvest.getInstance().isHoeEnabled()) {
+			if (!(e.getPlayer().getInventory().getItemInMainHand().getItemMeta() instanceof Damageable))
+				return;
+
+			ItemStack hand = e.getPlayer().getInventory().getItemInMainHand();
+			Damageable item = (Damageable) e.getPlayer().getInventory().getItemInMainHand().getItemMeta();
+
+			if ((hand.getType().getMaxDurability() - item.getDamage()) < SmartHarvest.getInstance()
+					.getDurabilityPerUse())
+				return;
+
+			item.setDamage(item.getDamage() + SmartHarvest.getInstance().getDurabilityPerUse());
+			e.getPlayer().getInventory().getItemInMainHand().setItemMeta((ItemMeta) item);
+		}
+		
+		bre.setCancelled(true);
+		block.breakNaturally(e.getPlayer().getInventory().getItemInMainHand());
+		block.setType(crop.getMaterial());
+		crop.setAge(0);
+		block.setBlockData(crop);
+
+		if (!SmartHarvest.getInstance().isParticleEnabled())
+			return;
+
+		ConfigurationSection config = SmartHarvest.getInstance().getMainConfig().getConfigurationSection("particles");
+
+		DustOptions dustOptions = new DustOptions(
+				Color.fromRGB(config.getInt("color.red"), config.getInt("color.green"), config.getInt("color.blue")),
+				(float) config.getDouble("size"));
+		e.getClickedBlock().getLocation().getWorld().spawnParticle(Particle.REDSTONE,
+				e.getClickedBlock().getLocation().add(0.5, 1, 0.5), config.getInt("count"), dustOptions);
+
 	}
 }
