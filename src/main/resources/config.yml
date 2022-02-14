@@ -3,6 +3,8 @@ harvest-with-hoe:
     enabled: true
     #lose 1 durability each crop harvested
     durability-per-operation: 1
+    #break hoe when durability reaches 0
+    break-when-zero-durability: true
 
     
 particles:

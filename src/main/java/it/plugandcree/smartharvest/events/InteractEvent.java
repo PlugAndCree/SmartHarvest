@@ -3,7 +3,9 @@ package it.plugandcree.smartharvest.events;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
@@ -48,7 +50,7 @@ public class InteractEvent implements Listener {
 
 		BlockBreakEvent bre = new BlockBreakEvent(block, e.getPlayer());
 		Bukkit.getPluginManager().callEvent(bre);
-		
+
 		if (bre.isCancelled())
 			return;
 
@@ -60,13 +62,18 @@ public class InteractEvent implements Listener {
 			Damageable item = (Damageable) e.getPlayer().getInventory().getItemInMainHand().getItemMeta();
 
 			if ((hand.getType().getMaxDurability() - item.getDamage()) < SmartHarvest.getInstance()
-					.getDurabilityPerUse())
-				return;
-
-			item.setDamage(item.getDamage() + SmartHarvest.getInstance().getDurabilityPerUse());
-			e.getPlayer().getInventory().getItemInMainHand().setItemMeta((ItemMeta) item);
+					.getDurabilityPerUse()) {
+				if(!SmartHarvest.getInstance().isBrokeHoeEnabled())
+					return;
+				
+				e.getPlayer().getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+				e.getPlayer().getLocation().getWorld().playSound(e.getPlayer().getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 1);
+			} else {
+				item.setDamage(item.getDamage() + SmartHarvest.getInstance().getDurabilityPerUse());
+				e.getPlayer().getInventory().getItemInMainHand().setItemMeta((ItemMeta) item);
+			}
 		}
-		
+
 		bre.setCancelled(true);
 		block.breakNaturally(e.getPlayer().getInventory().getItemInMainHand());
 		block.setType(crop.getMaterial());
