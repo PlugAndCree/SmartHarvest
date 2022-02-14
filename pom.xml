@@ -25,9 +25,9 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.spigot.libraries</groupId>
-			<artifactId>spigot-commons</artifactId>
-			<version>1.7.5-f6cd60e</version>
+			<groupId>org.spigot.commons</groupId>
+			<artifactId>commons-cmd</artifactId>
+			<version>2.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -63,14 +63,9 @@
 							<goal>shade</goal>
 						</goals>
 						<configuration>
-							<artifactSet>
-								<includes>
-									<include>com.spigot.libraries:spigot-commons</include>
-								</includes>
-							</artifactSet>
 							<relocations>
 								<relocation>
-									<pattern>com.spigot.libraries</pattern>
+									<pattern>org.spigot.commons</pattern>
 									<shadedPattern>it.plugandcree.smartharvest.libraries</shadedPattern>
 								</relocation>
 							</relocations>

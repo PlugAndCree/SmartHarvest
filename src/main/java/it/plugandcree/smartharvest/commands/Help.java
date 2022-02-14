@@ -1,23 +1,21 @@
 package it.plugandcree.smartharvest.commands;
 
-import java.util.List;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-
-import com.spigot.libraries.commands.Command;
+import org.spigot.commons.commands.ExecutionContext;
+import org.spigot.commons.commands.builtin.PermissibleCommand;
 
 import it.plugandcree.smartharvest.SmartHarvest;
 import it.plugandcree.smartharvest.config.CustomConfig;
 
-public class Help extends Command {
+public class Help extends PermissibleCommand {
 
 	public Help() {
 		super("help", "smartharvest.help", SmartHarvest.getInstance().getLangConfig().noPerm());
 	}
 
 	@Override
-	public boolean execute(CommandSender sender, org.bukkit.command.Command cmd, List<String> args) {
+	public boolean execute(CommandSender sender, ExecutionContext context) {
 		CustomConfig lang = SmartHarvest.getInstance().getLangConfig();
 		
 		sender.sendMessage(lang.getString("messages.help"));

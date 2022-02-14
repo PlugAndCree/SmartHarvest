@@ -3,3 +3,7 @@ version: ${project.version}
 api-version: 1.15
 
 main: it.plugandcree.smartharvest.SmartHarvest
+
+commands:
+    smartharvest:
+        description: main cmd
