@@ -29,6 +29,12 @@
 			<artifactId>spigot-commons</artifactId>
 			<version>1.7.5-f6cd60e</version>
 		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.22</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<resources>

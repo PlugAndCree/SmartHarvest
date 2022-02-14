@@ -14,11 +14,15 @@ import it.plugandcree.smartharvest.commands.MainCommand;
 import it.plugandcree.smartharvest.config.ConfigProcessor;
 import it.plugandcree.smartharvest.config.CustomConfig;
 import it.plugandcree.smartharvest.events.InteractEvent;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class SmartHarvest extends JavaPlugin {
 
-	private static SmartHarvest instance;
-	private static List<Material> harvestable;
+	private static @Getter SmartHarvest instance;
+	private static @Getter @Setter List<Material> harvestable;
 	private CustomConfig mainConfig;
 	private CustomConfig langConfig;
 	private boolean hoeEnabled;
@@ -68,65 +72,4 @@ public class SmartHarvest extends JavaPlugin {
 			throw new RuntimeException(e);
 		}
 	}
-	
-	public static SmartHarvest getInstance() {
-		return instance;
-	}
-
-	public static List<Material> getHarvestable() {
-		return harvestable;
-	}
-
-	public static void setHarvestable(List<Material> harvestable) {
-		SmartHarvest.harvestable = harvestable;
-	}
-
-	public CustomConfig getMainConfig() {
-		return mainConfig;
-	}
-
-	public void setMainConfig(CustomConfig mainConfig) {
-		this.mainConfig = mainConfig;
-	}
-
-	public CustomConfig getLangConfig() {
-		return langConfig;
-	}
-
-	public void setLangConfig(CustomConfig langConfig) {
-		this.langConfig = langConfig;
-	}
-
-	public boolean isHoeEnabled() {
-		return hoeEnabled;
-	}
-
-	public void setHoeEnabled(boolean hoeEnabled) {
-		this.hoeEnabled = hoeEnabled;
-	}
-
-	public int getDurabilityPerUse() {
-		return durabilityPerUse;
-	}
-
-	public void setDurabilityPerUse(int durabilityPerUse) {
-		this.durabilityPerUse = durabilityPerUse;
-	}
-
-	public boolean isParticleEnabled() {
-		return particleEnabled;
-	}
-
-	public void setParticleEnabled(boolean particleEnabled) {
-		this.particleEnabled = particleEnabled;
-	}
-
-	public boolean isBrokeHoeEnabled() {
-		return brokeHoeEnabled;
-	}
-
-	public void setBrokeHoeEnabled(boolean brokeHoeEnabled) {
-		this.brokeHoeEnabled = brokeHoeEnabled;
-	}
-	
 }
