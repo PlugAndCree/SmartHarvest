@@ -75,6 +75,7 @@ public class InteractEvent implements Listener {
 		}
 
 		bre.setCancelled(true);
+		e.getPlayer().swingMainHand();
 		block.breakNaturally(e.getPlayer().getInventory().getItemInMainHand());
 		block.setType(crop.getMaterial());
 		crop.setAge(0);
