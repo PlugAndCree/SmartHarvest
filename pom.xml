@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.plugandcree</groupId>
 	<artifactId>smartharvest</artifactId>
-	<version>1.1.4</version>
+	<version>1.1.5</version>
 	<name>SmartHarvest</name>
 	<repositories>
 		<repository>
@@ -13,7 +13,7 @@
 		</repository>
 		<repository>
 			<id>tecno-repo</id>
-			<url>http://repo.mrtecno.tk/repository/public-maven/</url>
+			<url>https://repo.mrtecno.tk/repository/public-maven/</url>
 		</repository>
 	</repositories>
 
